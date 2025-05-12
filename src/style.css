@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: inter;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+}
+
+@theme {
+  --color-background: #0a0b0d;
+  --color-border: #8a919e33;
+  --color-bg-hover: #2563eb33;
+
+  --color-activity-0: #161a22;
+  --color-activity-1: #0e1c44;
+  --color-activity-2: #001b6d;
+  --color-activity-3: #2648a6;
+  --color-activity-4: #3965d3;
+
+  --text-primary: #ffffff;
+
+  --spacing-sidebar: 256px;
+  --spacing-topbar: 101px;
+}
