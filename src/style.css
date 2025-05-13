@@ -2,9 +2,8 @@
 
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
   font-family: inter;
+  color: white;
 }
 
 body {
@@ -22,7 +21,7 @@ body {
   --color-activity-3: #2648a6;
   --color-activity-4: #3965d3;
 
-  --text-primary: #ffffff;
+  --color-text-primary: #ffffff;
 
   --spacing-sidebar: 256px;
   --spacing-topbar: 101px;

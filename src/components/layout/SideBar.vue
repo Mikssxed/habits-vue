@@ -1,9 +1,18 @@
 <script setup lang="ts">
+import { storeToRefs } from "pinia";
+import calendar from "../../assets/calendar.svg";
+import goal from "../../assets/goal.svg";
+import house from "../../assets/house.svg";
+import user from "../../assets/user.svg";
 import { globalStore } from "../../stores";
 import { cn } from "../../utils/cn";
 import LogoLink from "../common/LogoLink.vue";
+import SidebarLink from "../common/SidebarLink.vue";
+import UserShortInfo from "../common/UserShortInfo.vue";
 
-const { sidebarOpen, toggleSidebar } = globalStore();
+const store = globalStore();
+const { sidebarOpen } = storeToRefs(store); // ✅ reactive
+const { toggleSidebar } = store; // ✅ functions are safe to destructure
 </script>
 
 <template>
@@ -28,11 +37,11 @@ const { sidebarOpen, toggleSidebar } = globalStore();
   >
     <LogoLink classes="hidden md:flex" />
     <UserShortInfo mobile />
-    <ul className="flex flex-col gap-2">
-      <SidebarLink href="/dashboard" iconSrc="house.svg" title="Dashboard" />
-      <SidebarLink href="/goals" iconSrc="goal.svg" title="Goals" />
-      <SidebarLink href="/habits" iconSrc="calendar.svg" title="Habits" />
-      <SidebarLink href="/avatar" iconSrc="user.svg" title="Avatar" />
+    <ul class="flex flex-col gap-2">
+      <SidebarLink href="/dashboard" :iconSrc="house" title="Dashboard" />
+      <SidebarLink href="/goals" :iconSrc="goal" title="Goals" />
+      <SidebarLink href="/habits" :iconSrc="calendar" title="Habits" />
+      <SidebarLink href="/avatar" :iconSrc="user" title="Avatar" />
     </ul>
   </div>
 </template>

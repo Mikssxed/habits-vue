@@ -19,7 +19,7 @@ const { toggleSidebar } = globalStore();
     to="/dashboard"
     @onClick="() => toggleSidebar(false)"
   >
-    <img :src="logo" alt="logo" width="{36}" height="{36}" />
+    <img :src="logo" alt="logo" width="36" height="36" />
     <h1 class="text-2xl text-primary font-bold">SelfGrind</h1>
   </RouterLink>
 </template>
