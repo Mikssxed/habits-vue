@@ -10,6 +10,7 @@ const props = defineProps<{
   title: string;
   handleSubmit: () => void;
   class?: string;
+  formValid?: boolean;
 }>();
 
 const { modal } = props;
@@ -46,7 +47,9 @@ function closeModal() {
         </div>
         <div class="mt-3 flex justify-end gap-1">
           <BaseButton :click="closeModal">Close</BaseButton>
-          <PrimaryButton :click="handleSubmit">Save</PrimaryButton>
+          <PrimaryButton :click="handleSubmit" :disabled="formValid === false"
+            >Save</PrimaryButton
+          >
         </div>
       </div>
     </div>
