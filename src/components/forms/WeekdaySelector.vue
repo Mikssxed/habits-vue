@@ -7,13 +7,13 @@ const props = defineProps<{
 const modelValue = defineModel<string[]>();
 
 const weekdays = [
-  { value: "mon", label: "Mon" },
-  { value: "tue", label: "Tue" },
-  { value: "wed", label: "Wed" },
-  { value: "thu", label: "Thu" },
-  { value: "fri", label: "Fri" },
-  { value: "sat", label: "Sat" },
-  { value: "sun", label: "Sun" },
+  { value: "Mon", label: "Mon" },
+  { value: "Tue", label: "Tue" },
+  { value: "Wed", label: "Wed" },
+  { value: "Thu", label: "Thu" },
+  { value: "Fri", label: "Fri" },
+  { value: "Sat", label: "Sat" },
+  { value: "Sun", label: "Sun" },
 ];
 
 function toggleDay(day: string) {
@@ -42,7 +42,7 @@ function toggleDay(day: string) {
         type="button"
         @click="toggleDay(day.value)"
         :class="[
-          'rounded-md border px-2 py-1 transition-all',
+          'cursor-pointer rounded-md border px-2 py-1 transition-all',
           modelValue?.includes(day.value)
             ? 'border-activity-4 bg-activity-4 text-white'
             : 'border-activity-2 bg-activity-1 text-text-primary',

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { type CalendarDate, today } from "@internationalized/date";
 import { computed, ref } from "vue";
-import { modalsStore } from "../../stores";
+import { habitsStore, modalsStore } from "../../stores";
 import BaseInput from "../forms/BaseInput.vue";
 import DatePicker from "../forms/DatePicker.vue";
 import RepeatSelector from "../forms/RepeatSelector.vue";
@@ -15,7 +15,7 @@ const title = ref("");
 const description = ref("");
 const startDate = ref<CalendarDate>(today("UTC"));
 const startTime = ref<string | null>(null);
-const duration = ref<number | null>(null);
+const duration = ref(30);
 const repeat = ref("daily");
 const weekdays = ref<string[]>(["mon", "tue", "wed", "thu", "fri"]);
 const touched = ref({
@@ -23,6 +23,7 @@ const touched = ref({
   startTime: false,
   weekdays: false,
 });
+const habits = habitsStore();
 
 const showWeekdaySelector = computed(() => repeat.value === "weekly");
 const formValid = computed(() => {
@@ -54,15 +55,18 @@ function createHabit() {
     return;
   }
 
-  // Add your logic to create a habit here
-  console.log({
+  habits.addHabit({
     title: title.value,
     description: description.value,
-    startDate: startDate.value,
-    startTime: startTime.value,
+    startDate: startDate.value.toDate("UTC"),
+    startTime: startTime.value!,
     duration: duration.value,
     repeat: repeat.value,
     weekdays: repeat.value === "weekly" ? weekdays.value : undefined,
+    totalCount: 0,
+    streakCount: 0,
+    createdAt: new Date(),
+    completedAt: [],
   });
 
   // Close the modal and reset form
@@ -75,7 +79,7 @@ function resetForm() {
   description.value = "";
   startDate.value = today("UTC");
   startTime.value = null;
-  duration.value = null;
+  duration.value = 30;
   repeat.value = "daily";
   weekdays.value = ["mon", "tue", "wed", "thu", "fri"];
 }

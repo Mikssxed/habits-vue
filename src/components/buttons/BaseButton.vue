@@ -13,7 +13,9 @@ const props = defineProps<{
     :class="
       cn(
         'flex items-center justify-center rounded-xl border border-border px-4 py-1',
-        props.disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
+        props.disabled
+          ? 'cursor-not-allowed opacity-50'
+          : 'cursor-pointer transition-all hover:opacity-80',
         props.class,
       )
     "
