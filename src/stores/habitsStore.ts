@@ -2,20 +2,45 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import type { Habit } from "../types";
 
+function saveHabitsToLocalStorage(habits: Habit[]) {
+  localStorage.setItem("habits", JSON.stringify(habits));
+}
+
+function calculateStreak(habit: Habit, date: Date) {
+  const today = new Date();
+}
+
 export const habitsStore = defineStore("habits", () => {
-  const habits = ref<Habit[]>([]);
+  const habitsStorage = localStorage.getItem("habits");
+  const parsedHabits = habitsStorage ? JSON.parse(habitsStorage) : [];
+  const habits = ref<Habit[]>(parsedHabits);
   const selectedDay = ref<Date>(new Date());
 
   function addHabit(habit: Habit) {
-    habits.value.push(habit);
+    const alreadyExists = habits.value.filter(
+      (habitItem) => habitItem.title === habit.title,
+    );
+    habits.value.push({
+      ...habit,
+      title:
+        alreadyExists.length > 0
+          ? `${habit.title} (${alreadyExists.length + 1})`
+          : habit.title,
+    });
+    saveHabitsToLocalStorage(habits.value);
   }
 
   function removeHabit(index: number) {
     habits.value.splice(index, 1);
+    saveHabitsToLocalStorage(habits.value);
   }
 
   function updateHabit(index: number, habit: Habit) {
-    habits.value[index] = habit;
+    habits.value[index] = {
+      ...habit,
+      totalCount: habit.completedAt?.length || 0,
+    };
+    saveHabitsToLocalStorage(habits.value);
   }
 
   function setSelectedDay(date: Date) {
@@ -31,15 +56,17 @@ export const habitsStore = defineStore("habits", () => {
           day.toLocaleString("en-US", { weekday: "short" }),
         );
 
-      if (habit.startDate > day || !shouldCount) {
+      if (new Date(habit.startDate) > new Date(day) || !shouldCount) {
         lengthCorrection++;
       }
+
       const isCompleted = habit.completedAt?.some(
-        (completedDate) => completedDate.toDateString() === day.toDateString(),
+        (completedDate) =>
+          new Date(completedDate).toDateString() ===
+          new Date(day).toDateString(),
       );
 
       if (isCompleted) {
-        console.log("skipping 2");
         return acc + 1;
       }
 

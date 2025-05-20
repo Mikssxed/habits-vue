@@ -2,16 +2,19 @@
 import { Check } from "lucide-vue-next";
 import { computed } from "vue";
 
-const props = defineProps<{ completion: number }>();
+const props = defineProps<{
+  completion: number;
+  static?: boolean;
+  click?: () => void;
+}>();
 
 const dashOffset = computed(() => {
-  console.log(props.completion);
   return 1100 - props.completion * 1100;
 });
 </script>
 
 <template>
-  <div class="mt-1 h-6 w-6">
+  <div class="mt-1 h-6 w-6 cursor-pointer" @click="props.click">
     <div
       class="flex items-center justify-center rounded-full bg-activity-4 p-1"
       v-if="props.completion === 1"
@@ -30,7 +33,7 @@ const dashOffset = computed(() => {
         cy="175"
         r="175"
         stroke-width="60"
-        fill="none"
+        :fill="static ? '#8a919e33' : 'none'"
       ></circle>
       <circle
         stroke="#3965d3"
