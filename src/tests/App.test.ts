@@ -2,13 +2,15 @@ import { createTestingPinia } from "@pinia/testing";
 import { render } from "@testing-library/vue";
 import { createPinia, setActivePinia } from "pinia";
 import { test } from "vitest";
-import App from "../App.vue";
+import HabitsView from "../views/HabitsView.vue";
 
-test("App test", () => {
+test("App test", async () => {
   setActivePinia(createPinia());
-  render(App, {
+  const { findByText } = render(HabitsView, {
     global: {
       plugins: [createTestingPinia()],
     },
   });
+
+  await findByText("Create habit");
 });

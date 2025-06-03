@@ -13,6 +13,7 @@
     "@internationalized/date": "^3.8.0",
     "@tailwindcss/postcss": "^4.1.6",
     "@tailwindcss/vite": "^4.1.6",
+    "@vitest/browser": "^3.2.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "lucide-vue-next": "^0.510.0",
